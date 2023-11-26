@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Band A",
+    "startDate": "2023-01-01",
+    "endDate": "2023-01-15",
+    "createdBy": "John Doe",
+    "createdDate": "2023-10-01T10:00:00",
+    "modifiedBy": "Jane Smith",
+    "modifiedDate": "2023-10-02T14:30:00"
+  },
+  {
+    "id": 2,
+    "name": "Band B",
+    "startDate": "2023-01-01",
+    "endDate": "2023-01-15",
+    "createdBy": "Mark Doe",
+    "createdDate": "2023-10-01T10:00:00",
+    "modifiedBy": "Jane Smith",
+    "modifiedDate": "2023-10-02T14:30:00"
+  },
+  {
+    "id": 3,
+    "name": "Band C",
+    "startDate": "2023-01-01",
+    "endDate": "2023-01-15",
+    "createdBy": "Dave Doe",
+    "createdDate": "2023-10-01T10:00:00",
+    "modifiedBy": "Dave Smith",
+    "modifiedDate": "2023-10-02T14:30:00"
+  }
+]

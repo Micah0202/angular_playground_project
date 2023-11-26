@@ -1,0 +1,31 @@
+<div class="container">
+  <table class="table table-borderless table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Created By</th>
+        <th>Created Date</th>
+        <th>Modified By</th>
+        <th>Modified Date</th>
+        <th>Actions</th>
+        <!-- Add a column for actions -->
+      </tr>
+    </thead>
+  </table>
+</div>
+
+<table class="container">
+  <tbody>
+    <tr *ngFor="let band of bands">
+      <td><app-band [band]="band"></app-band></td>
+      <td>
+        <button mat-button (click)="openDetailsDialog(band)">
+          Open Details
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
