@@ -60,7 +60,8 @@ export class BandComponent implements OnInit {
   onSubmitUpdate(BandUpdateData: Band) {
     // this.updateEmployee();
     let date = new Date();
-
+    this.band.createdBy = 'Micah';
+    this.band.createdDate = date;
     this.bandService
       .updateBand(BandUpdateData['id'], BandUpdateData)
       .subscribe((data) => {
@@ -74,6 +75,8 @@ export class BandComponent implements OnInit {
   /*************************next templte for  add band****************************************@@@@@@@@@@@@@@@@@@@@** */
 
   saveBand() {
+    let date = new Date();
+
     this.bandSubscription = this.bandService.createBand(this.band).subscribe({
       next: (data) => {
         console.log(data);
