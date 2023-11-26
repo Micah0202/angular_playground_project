@@ -8,7 +8,7 @@ describe('BandDetailsDialogComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [BandDetailsDialogComponent]
+      declarations: [BandDetailsDialogComponent],
     });
     fixture = TestBed.createComponent(BandDetailsDialogComponent);
     component = fixture.componentInstance;

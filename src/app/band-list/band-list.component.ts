@@ -1,8 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { BandService } from '../band.service';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { Band } from '../band';
+import { BandService } from '../band.service';
 import { MatDialog } from '@angular/material/dialog';
-import { BandDetailsDialogComponent } from '../band-details-dialog/band-details-dialog.component';
+import { BandComponent } from '../band/band.component';
+import { DatePipe } from '@angular/common';
+//import bandlist from '../../assets/json/band.json';
 
 @Component({
   selector: 'app-band-list',
@@ -10,31 +19,28 @@ import { BandDetailsDialogComponent } from '../band-details-dialog/band-details-
   styleUrls: ['./band-list.component.scss'],
 })
 export class BandListComponent implements OnInit {
-  bands: Band[] = []; // Define an array to hold the band data
+  //bands : Band[];
+  //bandlist:any;
+  // dialogBoxData!: Band;
+  data!: Band;
+  // @ViewChild('dialogref') dialogref!: TemplateRef<Band>;
+  //@Output() createNew = new EventEmitter<void>();
+  @ViewChild(BandComponent) child!: BandComponent;
+  @ViewChild('dialogBox') dialogBox!: TemplateRef<Band>;
+  bands: Band[] = [];
 
-  constructor(
-    private bandService: BandService,
-    private dialog: MatDialog //This service is provided by Angular Material's MatDialog module and is used to open a dialog for displaying band details.
-  ) {}
+  constructor(private bandService: BandService, private dialog: MatDialog) {}
+
   ngOnInit(): void {
-    // Fetch data from the service
+    // this.bands = bandslis;
     this.bandService.getBandsList().subscribe((data) => {
+      console.log('Band data', data);
       this.bands = data;
     });
   }
-  // This function is designed to open a details dialog for a specific band.
-  openDetailsDialog(band: Band): void {
-    //This code opens the dialog using Angular Material's MatDialog service
-    //TODO - open takes the component that will be displayed in the dialog and config of the dialog
-    const dialogRef = this.dialog.open(BandDetailsDialogComponent, {
-      width: '500px', // Adjust the width as needed
-      data: band, // Pass the band data to the dialog
-    }); //dialog.open is used to open a dialog
 
-    //this code sets up a subscription to the afterClosed() event of the dialogRef.This event occurs after the dialog is closed
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-      // You can handle any actions after the dialog is closed here if needed.
-    });
+  AddNewBand() {
+    console.log('AddNewBand');
+    this.child.createBandDialogBox();
   }
 }

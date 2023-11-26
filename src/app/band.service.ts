@@ -26,16 +26,16 @@ export class BandService {
 
   //POST
   createBand(band: Band): Observable<Object> {
+    console.log('band', band);
     return this.http.post(this.bandsUrl, band);
   }
-
   //GET BY ID
   getBandById(id: number): Observable<Band> {
     return this.http.get<Band>(this.bandsUrl + '/' + id);
   }
 
   //UPDATE EMPLOYEE
-  //call the below methid in comp.ts
+  //call the below method in comp.ts
   updateBand(id: number, band: Band): Observable<Object> {
     return this.http.put(this.bandsUrl + '/' + id, band);
   }

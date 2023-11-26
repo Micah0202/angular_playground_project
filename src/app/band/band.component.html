@@ -1,25 +1,220 @@
-<div class="container">
-  <!-- <h2>Band Details</h2> -->
-  <table class="table table-borderless">
-    <tbody>
-      <tr>
-        <!-- <th>ID:</th> -->
-        <td>{{ band?.id }}</td>
-        <!-- <th>Name:</th> -->
-        <td>{{ band?.name }}</td>
-        <!-- <th>Start Date:</th> -->
-        <td>{{ band?.startDate }}</td>
-        <!-- <th>End Date:</th> -->
-        <td>{{ band?.endDate }}</td>
-        <!-- <th>Created By:</th> -->
-        <td>{{ band?.createdBy }}</td>
-        <!-- <th>Created Date:</th> -->
-        <td>{{ band?.createdDate }}</td>
-        <!-- <th>Modified By:</th> -->
-        <td>{{ band?.modifiedBy }}</td>
-        <!-- <th>Modified Date:</th> -->
-        <td>{{ band?.modifiedDate }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<td mat-button (click)="showData(band)">{{ this.band.id }}</td>
+<td mat-button (click)="showData(band)">{{ this.band.name }}</td>
+<td mat-button (click)="showData(band)">
+  {{ this.band.startDate | date : "dd-MM-yyyy HH:mm:ss" }}
+</td>
+<td mat-button (click)="showData(band)">
+  {{ this.band.endDate | date : "dd-MM-yyyy HH:mm:ss" }}
+</td>
+<td mat-button (click)="showData(band)">{{ this.band.createdBy }}</td>
+<td mat-button (click)="showData(band)">
+  {{ this.band.createdDate | date : "dd-MM-yyyy HH:mm:ss" }}
+</td>
+<td mat-button (click)="showData(band)">{{ this.band.modifiedBy }}</td>
+<td mat-button (click)="showData(band)">
+  {{ this.band.modifiedDate | date : "dd-MM-yyyy HH:mm:ss" }}
+</td>
+<td>
+  <button
+    (click)="deleteBandById(band.id)"
+    class="btn btn-danger"
+    style="margin-left: 10px"
+  >
+    Delete
+  </button>
+</td>
+
+<!-- </tr> -->
+
+<!--Template for popup and update -->
+<!--This section defines an Angular template (ng-template) named dialogref for displaying a popup. It contains a form for updating band details with various input fields.--->
+<ng-template #dialogref>
+  <div mat-dialog-title>
+    <h3 class="table-dark">Viewing Band : {{ this.data["name"] }}</h3>
+  </div>
+  <form (ngSubmit)="onSubmitUpdate(data)">
+    <div mat-dialog-content>
+      <!-- <h3>Viewing Band : [(this.dialogBoxData['name'])]</h3> -->
+
+      <table id="Box">
+        <tr>
+          <td>ID</td>
+          <td>{{ this.data["id"] }}</td>
+        </tr>
+        <tr>
+          <td>Name</td>
+          <td>{{ this.data["name"] }}</td>
+        </tr>
+        <tr>
+          <td>StartDate</td>
+          <input
+            type="date"
+            class="form-control"
+            id="startDate"
+            [(ngModel)]="band.startDate"
+            name="startDate"
+          />
+        </tr>
+        <tr>
+          <td>EndDate</td>
+          <input
+            type="date"
+            class="form-control"
+            id="endDate"
+            [(ngModel)]="band.endDate"
+            name="endDate"
+          />
+        </tr>
+        <tr>
+          <td>CreatedBy</td>
+          <td>{{ this.data["createdBy"] }}</td>
+        </tr>
+        <tr>
+          <td>CreatedDate</td>
+          <td>{{ this.data["createdDate"] }}</td>
+        </tr>
+        <tr>
+          <td>ModifiedBy</td>
+          <input
+            type="text"
+            class="form-control"
+            id="modifiedBy"
+            [(ngModel)]="band.modifiedBy"
+            name="modifiedBy"
+          />
+        </tr>
+
+        <tr>
+          <td>ModifiedDate</td>
+          <td>{{ this.data["modifiedDate"] }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div mat-dialog-actions>
+      <!--mat-diaolog-close will close your dialog box no matter what value u assign to it --->
+      <button
+        class="btn-dark"
+        mat-button
+        type="submit"
+        [mat-dialog-close]="true"
+      >
+        Submit
+      </button>
+      <button class="btn-dark" mat-button [mat-dialog-close]="true">
+        Close
+      </button>
+    </div>
+  </form>
+</ng-template>
+
+<!-- popup ADD btn  template-->
+
+<ng-template #dialogBox>
+  <div mat-dialog-title>
+    <h3 class="table-dark">ADD Band</h3>
+  </div>
+  <form #bandForm="ngForm" (ngSubmit)="onSubmit()">
+    <div mat-dialog-content>
+      <!-- <h3>Viewing Band : [(this.dialogBoxData['name'])]</h3> -->
+
+      <!-- <table id="Box">
+
+            <tr>
+                <td for="name">Band Name</td>
+                <td><input type="text" id="name" name="name" [(ngModel)]="band.name" required></td>
+            </tr>
+
+            <tr>
+              <td>StartDate</td>
+              <td><input type="date" id="startDate" name="startDate" [(ngModel)]="band.startDate" ngModel required></td>
+          </tr>
+            <tr>
+              <td>EndDate</td>
+              <td><input type="date" id="endDate" name="endDate" [(ngModel)]="band.endDate" ngModel required></td>
+          </tr>
+            <tr>
+                <td>CreatedBy</td>
+                <td><input type="text" id="createdBy" name="createdBy" [(ngModel)]="band.createdBy" ngModel required></td>
+            </tr>
+            <tr>
+                <td>CreatedDate</td>
+                <td><input type="date" id="createdDate" name="createdDate" [(ngModel)]="band.createdDate" ngModel required></td>
+            </tr>
+            <tr>
+              <td>ModifiedBy</td>
+              <td><input type="text" id="modifiedBy" name="modifiedBy" [(ngModel)]="band.modifiedBy" ngModel required></td>
+          </tr>
+          <tr>
+            <td>ModifiedDate</td>
+            <td><input type="date" id="modifiedDate" name="modifiedDate" [(ngModel)]="band.modifiedDate" ngModel required></td>
+        </tr>
+
+        </table> -->
+      <div class="form-group">
+        <label>Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          [(ngModel)]="band.name"
+          name="name"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Start Date</label>
+        <input
+          type="date"
+          class="form-control"
+          id="startDate"
+          [(ngModel)]="band.startDate"
+          name="startDate"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>End Date</label>
+        <input
+          type="date"
+          class="form-control"
+          id="endDate"
+          [(ngModel)]="band.endDate"
+          name="endDate"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Created By</label>
+        <input
+          type="text"
+          class="form-control"
+          id="createdBy"
+          [(ngModel)]="band.createdBy"
+          name="createdBy"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Modified By</label>
+        <input
+          type="text"
+          class="form-control"
+          id="modifiedBy"
+          [(ngModel)]="band.modifiedBy"
+          name="modifiedBy"
+        />
+      </div>
+
+      <button class="btn btn-success" type="submit">Submit</button>
+      <button class="btn-dark" mat-button [mat-dialog-close]="true">
+        Close
+      </button>
+    </div>
+
+    <!-- <div mat-dialog-actions> -->
+    <!-- <button class="btn-dark" mat-button type="submit" [mat-dialog-close]="true">ADD</button> -->
+    <!-- <button class="btn-dark" mat-button [mat-dialog-close]="true">Close</button> -->
+    <!-- </div> -->
+  </form>
+</ng-template>
