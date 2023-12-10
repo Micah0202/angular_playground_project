@@ -34,6 +34,8 @@
   </div>
   <form (ngSubmit)="onSubmitUpdate(data)">
     <div mat-dialog-content>
+      <!-- <h3>Viewing Band : [(this.dialogBoxData['name'])]</h3> -->
+
       <table id="Box">
         <tr>
           <td>ID</td>
@@ -49,20 +51,32 @@
             type="date"
             class="form-control"
             id="startDate"
-            [value]="this.data['startDate'] | date : 'yyyy-MM-dd'"
+            [(ngModel)]="band.startDate"
             name="startDate"
           />
+          <div *ngIf="editForm.hasError('dateError', ['startDate'])">
+            <p class="error-message">
+              Error: Start date must be less than end date.
+            </p>
+          </div>
         </tr>
+
         <tr>
           <td>EndDate</td>
           <input
             type="date"
             class="form-control"
             id="endDate"
-            [value]="this.data['endDate'] | date : 'yyyy-MM-dd'"
+            [(ngModel)]="band.endDate"
             name="endDate"
           />
+          <div *ngIf="editForm.hasError('dateError', ['endDate'])">
+            <p class="error-message">
+              Error: End date must be greater than start date.
+            </p>
+          </div>
         </tr>
+
         <tr>
           <td>CreatedBy</td>
           <td>{{ this.data["createdBy"] }}</td>
@@ -81,6 +95,7 @@
             name="modifiedBy"
           />
         </tr>
+
         <tr>
           <td>ModifiedDate</td>
           <td>{{ this.data["modifiedDate"] }}</td>
@@ -89,6 +104,7 @@
     </div>
 
     <div mat-dialog-actions>
+      <!--mat-diaolog-close will close your dialog box no matter what value u assign to it --->
       <button
         class="btn-dark"
         mat-button

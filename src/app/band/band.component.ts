@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { DateValidators } from '../date-validators';
 
 @Component({
   selector: 'app-band ,[app-band]',
@@ -20,12 +21,18 @@ export class BandComponent implements OnInit {
   data!: Band;
   @ViewChild('dialogref') dialogref!: TemplateRef<Band>;
   @ViewChild('dialogBox') dialogBox!: TemplateRef<Band>;
-  createForm!: FormGroup;
   editForm!: FormGroup;
   //updateForm!: FormGroup;
   isChecked!: Boolean;
   private bandSubscription: Subscription | undefined;
   //band = {} as Band ;
+  createForm = this.fb.group({
+    name: ['', Validators.required],
+    startDate: ['', Validators.required],
+    endDate: ['', Validators.required],
+    createdBy: ['', Validators.required],
+    modifiedBy: ['', Validators.required],
+  });
   constructor(
     private dialog: MatDialog,
     private bandService: BandService,
@@ -43,7 +50,19 @@ export class BandComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.isChecked = true
+    // Add the custom validator to the form group
+    this.editForm = this.fb.group(
+      {
+        startDate: ['', Validators.required],
+        endDate: ['', Validators.required],
+        // ... other form controls
+      },
+      {
+        validator: DateValidators.dateLessThan('startDate', 'endDate', {
+          dateError: true,
+        }),
+      }
+    );
   }
 
   //shows dialog ref template when oyu click  on any part of the row
@@ -65,35 +84,47 @@ export class BandComponent implements OnInit {
 
   //when you press the submit  button after updating this functuon will run
   onSubmitUpdate(BandUpdateData: Band) {
-    // this.updateEmployee();
-    let date = new Date();
-    this.band.createdBy = 'Micah';
-    this.band.createdDate = date;
-    this.bandService
-      .updateBand(BandUpdateData['id'], BandUpdateData)
-      .subscribe((data) => {
-        console.log('Band data', data);
+    const startDate = new Date(BandUpdateData.startDate);
+    const endDate = new Date(BandUpdateData.endDate);
 
-        // window.location.reload();
-        this.router.navigate(['/bands']);
-      });
+    if (startDate <= endDate) {
+      let date = new Date();
+      this.band.modifiedDate = date;
+      this.band.modifiedBy = 'Micah';
+
+      this.bandService
+        .updateBand(BandUpdateData['id'], BandUpdateData)
+        .subscribe((data) => {
+          console.log('Band data', data);
+          this.router.navigate(['/bands']);
+        });
+    } else {
+      alert('Start date must be less than or equal to end date.');
+    }
   }
 
-  /*************************next templte for  add band****************************************@@@@@@@@@@@@@@@@@@@@** */
+  /*************************next template for  add band****************************************@@@@@@@@@@@@@@@@@@@@** */
 
   saveBand() {
-    let date = new Date();
+    const startDate = new Date(this.band.startDate);
+    const endDate = new Date(this.band.endDate);
 
-    this.bandSubscription = this.bandService.createBand(this.band).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.goToBandList();
-      },
-      error: (err) => {
-        console.error(err);
-      },
-    });
+    if (startDate <= endDate) {
+      let date = new Date();
+      this.bandSubscription = this.bandService.createBand(this.band).subscribe({
+        next: (data) => {
+          console.log(data);
+          this.goToBandList();
+        },
+        error: (err) => {
+          console.error(err);
+        },
+      });
+    } else {
+      alert('Start date must be less than or equal to end date.');
+    }
   }
+
   goToBandList() {
     this.router.navigate(['/bands']);
   }

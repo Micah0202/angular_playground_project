@@ -11,6 +11,7 @@
 // }
 
 import { Timestamp } from 'rxjs';
+import { Validators } from '@angular/forms';
 
 // export interface Band {
 //     id: number;
@@ -43,4 +44,15 @@ export class Band {
   createdDate: Date = new Date();
   modifiedBy: string = '';
   modifiedDate: Date = new Date();
+}
+export interface response {
+  status: number;
+  error: string;
+  message: string;
+  timestamp: string;
+}
+export interface BandResponse {
+  response: response;
+  band: Band;
+  bands: Band[];
 }
