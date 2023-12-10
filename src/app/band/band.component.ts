@@ -32,7 +32,7 @@ export class BandComponent implements OnInit {
     private datePipe: DatePipe,
     private router: Router
   ) {
-    console.log(this.band);
+    //console.log(this.band);
   }
 
   ngOnInit(): void {
@@ -107,10 +107,10 @@ export class BandComponent implements OnInit {
     });
   }
 
-  onReadChange() {
-    // You can update the value or perform any actions here when the checkbox is changed
-    //console.log(console.log('Yes/No value: ', this.data['lread']));
-    //console.log(console.log('Yes/No value: ', this.data['lwrite']));
-    //console.log(console.log('Yes/No value: ', this.data['lspeak']));
-  }
+  // onReadChange() {
+  //   // You can update the value or perform any actions here when the checkbox is changed
+  //   //console.log(console.log('Yes/No value: ', this.data['lread']));
+  //   //console.log(console.log('Yes/No value: ', this.data['lwrite']));
+  //   //console.log(console.log('Yes/No value: ', this.data['lspeak']));
+  // }
 }
