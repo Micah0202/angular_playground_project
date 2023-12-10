@@ -124,53 +124,19 @@
 
 <ng-template #dialogBox>
   <div mat-dialog-title>
-    <h3 class="table-dark">ADD NEW Band</h3>
+    <h3 class="table-dark">ADD Band</h3>
   </div>
   <form #bandForm="ngForm" (ngSubmit)="onSubmit()">
     <div mat-dialog-content>
-      <!-- <h3>Viewing Band : [(this.dialogBoxData['name'])]</h3> -->
-
-      <!-- <table id="Box">
-
-            <tr>
-                <td for="name">Band Name</td>
-                <td><input type="text" id="name" name="name" [(ngModel)]="band.name" required></td>
-            </tr>
-
-            <tr>
-              <td>StartDate</td>
-              <td><input type="date" id="startDate" name="startDate" [(ngModel)]="band.startDate" ngModel required></td>
-          </tr>
-            <tr>
-              <td>EndDate</td>
-              <td><input type="date" id="endDate" name="endDate" [(ngModel)]="band.endDate" ngModel required></td>
-          </tr>
-            <tr>
-                <td>CreatedBy</td>
-                <td><input type="text" id="createdBy" name="createdBy" [(ngModel)]="band.createdBy" ngModel required></td>
-            </tr>
-            <tr>
-                <td>CreatedDate</td>
-                <td><input type="date" id="createdDate" name="createdDate" [(ngModel)]="band.createdDate" ngModel required></td>
-            </tr>
-            <tr>
-              <td>ModifiedBy</td>
-              <td><input type="text" id="modifiedBy" name="modifiedBy" [(ngModel)]="band.modifiedBy" ngModel required></td>
-          </tr>
-          <tr>
-            <td>ModifiedDate</td>
-            <td><input type="date" id="modifiedDate" name="modifiedDate" [(ngModel)]="band.modifiedDate" ngModel required></td>
-        </tr>
-
-        </table> -->
       <div class="form-group">
         <label>Name</label>
         <input
           type="text"
           class="form-control"
           id="name"
-          [(ngModel)]="band.name"
+          [(ngModel)]="newBand.name"
           name="name"
+          required
         />
       </div>
 
@@ -180,8 +146,9 @@
           type="date"
           class="form-control"
           id="startDate"
-          [(ngModel)]="band.startDate"
+          [(ngModel)]="newBand.startDate"
           name="startDate"
+          required
         />
       </div>
 
@@ -191,8 +158,9 @@
           type="date"
           class="form-control"
           id="endDate"
-          [(ngModel)]="band.endDate"
+          [(ngModel)]="newBand.endDate"
           name="endDate"
+          required
         />
       </div>
 
@@ -202,8 +170,9 @@
           type="text"
           class="form-control"
           id="createdBy"
-          [(ngModel)]="band.createdBy"
+          [(ngModel)]="newBand.createdBy"
           name="createdBy"
+          required
         />
       </div>
 
@@ -213,8 +182,9 @@
           type="text"
           class="form-control"
           id="modifiedBy"
-          [(ngModel)]="band.modifiedBy"
+          [(ngModel)]="newBand.modifiedBy"
           name="modifiedBy"
+          required
         />
       </div>
 
@@ -223,10 +193,5 @@
         Close
       </button>
     </div>
-
-    <!-- <div mat-dialog-actions> -->
-    <!-- <button class="btn-dark" mat-button type="submit" [mat-dialog-close]="true">ADD</button> -->
-    <!-- <button class="btn-dark" mat-button [mat-dialog-close]="true">Close</button> -->
-    <!-- </div> -->
   </form>
 </ng-template>

@@ -24,6 +24,18 @@ export class BandComponent implements OnInit {
   editForm!: FormGroup;
   //updateForm!: FormGroup;
   isChecked!: Boolean;
+  // In BandComponent class
+  newBand: Band = {
+    id: 0, // Or whatever default ID you want to set
+    name: '',
+    startDate: new Date(),
+    endDate: new Date(),
+    createdBy: '',
+    modifiedBy: '',
+    createdDate: new Date(), // You might want to set these on the server side
+    modifiedDate: new Date(),
+  };
+
   private bandSubscription: Subscription | undefined;
   //band = {} as Band ;
   createForm = this.fb.group({
@@ -106,20 +118,22 @@ export class BandComponent implements OnInit {
   /*************************next template for  add band****************************************@@@@@@@@@@@@@@@@@@@@** */
 
   saveBand() {
-    const startDate = new Date(this.band.startDate);
-    const endDate = new Date(this.band.endDate);
+    const startDate = new Date(this.newBand.startDate);
+    const endDate = new Date(this.newBand.endDate);
 
     if (startDate <= endDate) {
       let date = new Date();
-      this.bandSubscription = this.bandService.createBand(this.band).subscribe({
-        next: (data) => {
-          console.log(data);
-          this.goToBandList();
-        },
-        error: (err) => {
-          console.error(err);
-        },
-      });
+      this.bandSubscription = this.bandService
+        .createBand(this.newBand)
+        .subscribe({
+          next: (data) => {
+            console.log(data);
+            this.goToBandList();
+          },
+          error: (err) => {
+            console.error(err);
+          },
+        });
     } else {
       alert('Start date must be less than or equal to end date.');
     }
@@ -130,6 +144,7 @@ export class BandComponent implements OnInit {
   }
   onSubmit() {
     this.saveBand();
+    window.location.reload();
   }
   ngOnDestroy() {
     if (this.bandSubscription) {
