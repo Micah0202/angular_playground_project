@@ -10,6 +10,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [AppComponent, BandComponent, BandListComponent],
@@ -20,6 +25,11 @@ import { DatePipe } from '@angular/common';
     BrowserAnimationsModule,
     MatDialogModule,
     FormsModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatNativeDateModule
   ],
   providers: [BandService, DatePipe], //now BandService can be injected into any component of your choice and not just Band
   bootstrap: [AppComponent],

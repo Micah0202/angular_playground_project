@@ -22,6 +22,7 @@ export class BandComponent implements OnInit {
   @ViewChild('dialogBox') dialogBox!: TemplateRef<Band>;
   createForm!: FormGroup;
   editForm!: FormGroup;
+  //updateForm!: FormGroup;
   isChecked!: Boolean;
   private bandSubscription: Subscription | undefined;
   //band = {} as Band ;
@@ -33,6 +34,12 @@ export class BandComponent implements OnInit {
     private router: Router
   ) {
     //console.log(this.band);
+    // this.updateForm = this.fb.group({
+    //   // Other form controls...
+    //   startDate: ['', Validators.required],
+    //   endDate: ['', Validators.required],
+    //   // Other form controls...
+    // });
   }
 
   ngOnInit(): void {
