@@ -41,9 +41,9 @@ export class Band {
   startDate: Date = new Date(); // Initialized to the current date
   endDate: Date = new Date();
   createdBy: string = '';
-  createdDate: Date = new Date();
+  createdDate: string = '';
   modifiedBy: string = '';
-  modifiedDate: Date = new Date();
+  modifiedDate: string = '';
 }
 export interface response {
   status: number;

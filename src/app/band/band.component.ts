@@ -32,8 +32,8 @@ export class BandComponent implements OnInit {
     endDate: new Date(),
     createdBy: '',
     modifiedBy: '',
-    createdDate: new Date(), // You might want to set these on the server side
-    modifiedDate: new Date(),
+    createdDate: '', // You might want to set these on the server side
+    modifiedDate: '',
   };
 
   private bandSubscription: Subscription | undefined;
@@ -101,7 +101,10 @@ export class BandComponent implements OnInit {
 
     if (startDate <= endDate) {
       let date = new Date();
-      this.band.modifiedDate = date;
+      this.band.modifiedDate = this.datePipe.transform(
+        date,
+        'yyyy-MM-ddTHH:mm:ss'
+      )!;
       this.band.modifiedBy = 'Micah';
 
       this.bandService
@@ -117,12 +120,42 @@ export class BandComponent implements OnInit {
 
   /*************************next template for  add band****************************************@@@@@@@@@@@@@@@@@@@@** */
 
+  // saveBand() {
+  //   const startDate = new Date(this.newBand.startDate);
+  //   const endDate = new Date(this.newBand.endDate);
+
+  //   if (startDate <= endDate) {
+  //     let date = new Date();
+  //     this.bandSubscription = this.bandService
+  //       .createBand(this.newBand)
+  //       .subscribe({
+  //         next: (data) => {
+  //           console.log(data);
+  //           this.goToBandList();
+  //         },
+  //         error: (err) => {
+  //           console.error(err);
+  //         },
+  //       });
+  //   } else {
+  //     alert('Start date must be less than or equal to end date.');
+  //   }
+  // }
   saveBand() {
     const startDate = new Date(this.newBand.startDate);
     const endDate = new Date(this.newBand.endDate);
 
     if (startDate <= endDate) {
       let date = new Date();
+      this.newBand.createdDate = this.datePipe.transform(
+        date,
+        'yyyy-MM-ddTHH:mm:ss'
+      )!;
+      this.newBand.modifiedDate = this.datePipe.transform(
+        date,
+        'yyyy-MM-ddTHH:mm:ss'
+      )!;
+
       this.bandSubscription = this.bandService
         .createBand(this.newBand)
         .subscribe({
