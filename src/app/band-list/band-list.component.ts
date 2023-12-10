@@ -40,7 +40,7 @@ export class BandListComponent implements OnInit {
   }
 
   AddNewBand() {
-    console.log('AddNewBand');
+    // console.log('AddNewBand');
     this.child.createBandDialogBox();
   }
 }
